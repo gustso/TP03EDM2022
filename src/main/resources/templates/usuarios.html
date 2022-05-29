@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/css/miEstilo.css}" rel="stylesheet" type="text/css" href="/static/css/miEstilo.css">
+<link th:rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<header class="encabezado"> encabezados </header>
+<!--   -->
+
+<div class= "container">
+<div class="alert alert-success alert-dismissible fade show row" role="alert" th:if="${formUsuarioErrorMessage}" >
+	<label th:text="${formUsuarioErrorMessage}"></label>  
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div></div>
+<div class="row">
+<nav class="col-3"> menu </nav>
+<article class="col-3"> 
+	<form th:object="${unUsuario}" th:action="${editMode}?@{/editarUsuario}:@{/guardarUsuario}"	 method="post">
+	<input type="hidden" class="form-control"  th:if="${editMode}" th:field="*{contrasena}">
+	<input type="hidden" class="form-control"  th:if="${editMode}" th:field="*{estado}">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" th:field="*{mail}">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <div class="mb-3" th:if="${editMode == false}">
+    <label for="exampleInputPassword1" class="form-label">Passwordeeeeeeeeeeee</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" th:field="*{contrasena}">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <div class="mb-3">
+    <label for="apellido" class="form-label">Apellido</label>
+    <input type="text" class="form-control" id="apellido" th:field="*{apellido}">
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error</div>
+  </div>
+  <div class="mb-3">
+    <label for="dni" class="form-label">DNI</label>
+    <input type="number" class="form-control" id="dni" th:field="*{dni}">
+    <div class="alert alert-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}">Error</div>
+  </div>
+  <div>
+  <button type="submit" class="btn btn-primary" ><span th:text="${editMode}?'Modificar':'Guardar'"></span>  </button>
+  <a class="btn btn-light" th:href="@{/}">Volver</a>
+  </div>
+  
+</form> </article>
+</div>
+
+<footer> pie de pagina </footer>
+<script th:src="@{/webjars/bootstrap/5.0.0/js/bootstrap.min.js}"
+		type="text/javascript"
+		src="webjars/bootstrap/5.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
