@@ -1,5 +1,12 @@
 package ar.edu.unju.edm.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -7,14 +14,19 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Max (value = 99999999, message="DNI debe ser menor que 99999999")
+	@Min(value = 1000000, message="DNI debe ser mayor que 1000000")
+	private Integer dni;
+	
 	private String mail;
 	private String contrasena;
 	@NotEmpty
 	private String apellido;
-	@Max (value = 99999999, message="DNI debe ser menor que 99999999")
-	@Min(value = 1000000, message="DNI debe ser mayor que 1000000")
-	private Integer dni;
+	
 	private Boolean estado;
 	
 	public Usuario() {

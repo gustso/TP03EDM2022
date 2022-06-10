@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unju.edm.controller.UsuarioController;
 import ar.edu.unju.edm.model.Usuario;
+import ar.edu.unju.edm.repository.UsuarioRepository;
 import ar.edu.unju.edm.service.IUsuarioService;
 import ar.edu.unju.edm.util.ListaUsuarios;
 
@@ -21,11 +22,15 @@ public class IUsuarioServiceImp implements IUsuarioService{
 	@Autowired
 	ListaUsuarios lista;
 	
+	@Autowired
+	UsuarioRepository usuarioRepository;
+	
 	@Override
 	public void guardarUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
 		usuario.setEstado(true);
-		lista.getListed().add(usuario);
+		usuarioRepository.save(usuario);
+		//lista.getListed().add(usuario);
 	}
 
 	@Override
@@ -55,15 +60,17 @@ public class IUsuarioServiceImp implements IUsuarioService{
 	public List<Usuario> listarUsuarios() {
 		// TODO Auto-generated method stub
 		List<Usuario> auxiliar = new ArrayList<>();
-		GUSTAVO.info("ingresando al metodo: iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-		for (int i = 0; i < lista.getListed().size(); i++) {
-			GUSTAVO.error("recorriendo: oooooooooooooooooooooooooooo"+lista.getListed().get(i).getDni());
-			
-			if (lista.getListed().get(i).getEstado()==true) {
-				//GUSTAVO.error("encontrando: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-				auxiliar.add(lista.getListed().get(i));		
-			}            
-        }
+		/*
+		 * GUSTAVO.info("ingresando al metodo: iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"); for
+		 * (int i = 0; i < lista.getListed().size(); i++) {
+		 * GUSTAVO.error("recorriendo: oooooooooooooooooooooooooooo"+lista.getListed().
+		 * get(i).getDni());
+		 * 
+		 * if (lista.getListed().get(i).getEstado()==true) {
+		 * //GUSTAVO.error("encontrando: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		 * auxiliar.add(lista.getListed().get(i)); } }
+		 */
+		auxiliar=(List<Usuario>) usuarioRepository.findAll();
 		return auxiliar;
 	}
 
