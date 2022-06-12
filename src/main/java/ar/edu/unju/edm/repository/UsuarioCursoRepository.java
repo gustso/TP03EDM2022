@@ -8,5 +8,6 @@ import ar.edu.unju.edm.model.UsuarioCurso;
 @Repository
 public interface UsuarioCursoRepository extends CrudRepository<UsuarioCurso, Integer>{
 	
+	
 
 }

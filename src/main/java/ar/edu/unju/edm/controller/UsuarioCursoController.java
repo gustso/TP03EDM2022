@@ -15,7 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.edm.model.Usuario;
 import ar.edu.unju.edm.model.UsuarioCurso;
+import ar.edu.unju.edm.service.ICursoService;
 import ar.edu.unju.edm.service.IUsuarioCursoService;
+import ar.edu.unju.edm.service.IUsuarioService;
 
 @Controller
 public class UsuarioCursoController {
@@ -23,18 +25,23 @@ public class UsuarioCursoController {
 	
 	@Autowired
 	IUsuarioCursoService usuarioCursoService;
-	
+	@Autowired
+	IUsuarioService usuarioService;
+	@Autowired
+	ICursoService cursoService;	
 	
 	@GetMapping("/nuevaInscripcion")
 	public ModelAndView addInscripcion() {
 		GUSTAVO.info("ingresando al metodo: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
 		ModelAndView modelView = new ModelAndView("inscripcion");
-		modelView.addObject("unaInscripcion", usuarioCursoService.nuevoUsuarioCurso());		
+		modelView.addObject("unaInscripcion", usuarioCursoService.nuevoUsuarioCurso());
+		modelView.addObject("usuarios", usuarioService.listarUsuarios());
+		modelView.addObject("cursos", cursoService.listarCursos());
 		return modelView;
 	}
 
 	@PostMapping("/guardarInscripcion")
-	public ModelAndView saveUser(@Valid @ModelAttribute("unaInscripcion") UsuarioCurso usuarioCursoNuevo, BindingResult resultado) {			
+	public ModelAndView saveInscripcion(@Valid @ModelAttribute("unaInscripcion") UsuarioCurso usuarioCursoNuevo, BindingResult resultado) {			
 			// VERIFICACION DEL NOMBRE Y DNI	
 		ModelAndView modelView = new ModelAndView();
 		if (resultado.hasErrors()) {

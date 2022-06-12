@@ -1,8 +1,6 @@
 package ar.edu.unju.edm.model;
 
-import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +19,7 @@ public class Curso {
 	private String nombre;
 	@Lob	
 	private String imagen;
+	private Boolean estado;
 	
 	public Curso() {
 		// TODO Auto-generated constructor stub
@@ -49,6 +48,13 @@ public class Curso {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
 	
 }
